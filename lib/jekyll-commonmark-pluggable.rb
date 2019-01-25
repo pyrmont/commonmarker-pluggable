@@ -1,29 +1,38 @@
 # frozen-string-literal: true
 
-# An extension to jekyll-commonmark
+require 'commonmarker'
+
+# An extension to CommonMarker that adds plugin support
 #
-# This extension overwrites the `#convert` method for
-# `Jekyll::Converts::Markdown::CommonMark` to call each of the registered
-# CommonMark plugins.
-module Jekyll
-  module Converters
-    class Markdown::CommonMark
-      def convert(content)
-        doc = CommonMarker.render_doc(content, @parse_options, @extensions)
-        CommonMarker.plugins.each do |plugin|
-          plugin.call doc
-        end
-        doc.to_html(@render_options, @extensions)
-      end
-    end
-  end
-end
+# CommonMarkerPluggable is a shim that adds itself to CommonMarker and
+# intercepts calls to `CommonMarker.render_doc`. After a document object is
+# created, CommonMarkerPluggable calls the `.call` method of each plugin,
+# passing the updated document object each time.
+#
+# @since 0.2.0
+# @see https://github.com/pyrmont/jekyll-commonmarker-pluggable
+module CommonMarkerPluggable
 
-# Creates a module variable to hold the plugins
-module CommonMarker
-  @@__plugins = Array.new
-
+  # Collect the plugins
+  #
+  # @since 0.2.0
   def self.plugins
-    @@__plugins
+    @plugins ||= CommonMarker::Plugin.constants.reduce(Array.new) do |total,c|
+                   next total unless (m = CommonMarker::Plugin.const_get(c)).is_a? Module
+                   total.push m
+                 end
+  end
+
+  # Render the CommonMark document
+  #
+  # @since 0.2.0
+  def render_doc(text, options = :DEFAULT, extensions = [])
+    doc = super(text, options, extensions)
+    CommonMarkerPluggable.plugins.each do |plugin|
+      plugin.call doc
+    end
+    doc
   end
 end
+
+CommonMarker.singleton_class.prepend CommonMarkerPluggable

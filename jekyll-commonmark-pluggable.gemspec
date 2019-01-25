@@ -5,7 +5,7 @@ require 'jekyll-commonmark-pluggable/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "jekyll-commonmark-pluggable"
-  spec.version       = Jekyll::CommonMark::Pluggable::VERSION
+  spec.version       = Jekyll::CommonMarkPluggable::VERSION
   spec.authors       = ["Michael Camilleri"]
   spec.email         = ["mike@inqk.net"]
 

@@ -1,12 +1,16 @@
+[![Gem Version][badge-img]][badge-link]
+
+[badge-img]: https://badge.fury.io/rb/jekyll-commonmark-pluggable.svg
+[badge-link]: https://badge.fury.io/rb/jekyll-commonmark-pluggable
+
 # jekyll-commonmark-pluggable
 
-The jekyll-commonmark-pluggable plugin adds support for Jekyll plugins to
-jekyll-commonmark.
+jekyll-commonmark-pluggable adds support for plugins to CommonMarker.
 
-The `cmark` reference parser used by jekyll-commonmark supports extensions to
-the CommonMark specification but these are written in C. The
-jekyll-commonmark-pluggable plugin allows for extensions to be written in
-Ruby.
+The `cmark` reference parser used by CommonMarker supports extensions to the
+CommonMark specification but these are written in C. The
+jekyll-commonmark-pluggable plugin allows users to extend CommonMarker's parsing
+capabilities with plugins written in Ruby.
 
 ## Installation
 
@@ -32,8 +36,6 @@ A Jekyll plugin must implement the `self.call()` module method. This method
 takes one argument: `doc`. This is a `CommonMarker::Node` object representing
 the top-most node of a parsed Markdown document.
 
-The plugin must also add itself to the `CommonMark::Plugins` object.
-
 An example plugin is set out below:
 
 ```ruby
@@ -47,10 +49,6 @@ module CommonMarker
       end
     end
   end
-end
-
-Jekyll::Hooks.register :site, :after_init do |site|
-  CommonMarker.plugins << CommonMarker::Plugin::Example
 end
 ```
 
