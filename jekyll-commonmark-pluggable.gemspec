@@ -7,10 +7,10 @@ Gem::Specification.new do |spec|
   spec.name          = "jekyll-commonmark-pluggable"
   spec.version       = Jekyll::CommonMark::Pluggable::VERSION
   spec.authors       = ["Michael Camilleri"]
-  spec.email         = ["dev@inqk.net"]
+  spec.email         = ["mike@inqk.net"]
 
-  spec.summary       = %q{An extension to jekyll-commonmark that adds support for plugins.}
-  spec.description   = %q{The jekyll-commonmark-pluggable extension provides a simple way to extend CommonMarker using custom plugins.}
+  spec.summary       = %q{A plugin that extends jekyll-commonmark to support Jekyll plugins}
+  spec.description   = %q{The jekyll-commonmark-pluggable plugin provides a simple way to extend the CommonMark parser using Jekyll plugins.}
   spec.homepage      = "https://github.com/pyrmont/jekyll-commonmark-pluggable/"
   spec.license       = "Unlicense"
 
