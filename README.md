@@ -54,6 +54,24 @@ module CommonMarker
 end
 ```
 
+## Using with Jekyll
+
+commonmarker-pluggable was originally written for use with Jekyll. If you want
+to write a plugin that is both a CommonMarker plugin _and_ a Jekyll plugin, you
+need to ensure that commonmarker-pluggable is installed as a Jekyll plugin.
+There are [other ways][jk-pl] to do this, but the easiest method is to include
+commonmarker-pluggable in the `:jekyll_plugins` group in your Gemfile:
+
+[jk-pl]: https://jekyllrb.com/docs/plugins/installation/
+
+```ruby
+group :jekyll_plugins do
+  gem 'commonmarker-pluggable'
+  gem 'jekyll-commonmark'
+  ...
+end
+```
+
 ## Bugs
 
 Found a bug? I'd love to know about it. The best way is to report them in the
