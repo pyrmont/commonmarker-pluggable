@@ -1,4 +1,4 @@
-# frozen-string-literal: true
+# frozen_string_literal: true
 
 require 'commonmarker'
 
@@ -10,17 +10,20 @@ require 'commonmarker'
 # passing the updated document object each time.
 #
 # @since 0.2.0
-# @see https://github.com/pyrmont/jekyll-commonmarker-pluggable
+# @see https://github.com/pyrmont/commonmarker-pluggable
 module CommonMarkerPluggable
 
   # Collect the plugins
   #
   # @since 0.2.0
   def self.plugins
-    @plugins ||= CommonMarker::Plugin.constants.reduce(Array.new) do |total,c|
-                   next total unless (m = CommonMarker::Plugin.const_get(c)).is_a? Module
-                   total.push m
-                 end
+    return [] unless defined? CommonMarker::Plugin
+
+    @plugins ||=
+      CommonMarker::Plugin.constants.reduce(Array.new) do |total,c|
+        next total unless (m = CommonMarker::Plugin.const_get(c)).is_a? Module
+        total.push m
+      end
   end
 
   # Render the CommonMark document
